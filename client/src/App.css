@@ -5,6 +5,7 @@
   --light-color: #f4f4f4;
   --danger-color: #dc3545;
   --success-color: #28a745;
+  --black-text-color: rgb(75, 75, 75);
 }
 
 * {
@@ -235,7 +236,7 @@ img {
 }
 
 .light-overlay {
-  background-color: #f2faf8;
+  background-color: #fdffff;
   position: absolute;
   top: 0;
   left: 0;
@@ -356,6 +357,22 @@ button {
   align-items: center;
   justify-content: center;
   text-align: center;
+}
+
+.timer-center{
+  color: #1C6DD0;
+  height: 100%;
+  width: 80%;
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.other-menu{
+  color: var(--black-text-color);
 }
 
 /* Profiles Page */
@@ -512,6 +529,16 @@ button {
     font-size: 3rem;
   }
 
+  .x-large-center{
+    font-size: 3rem;
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+  }
+
   .large {
     font-size: 2rem;
   }
@@ -582,5 +609,12 @@ button {
   .post a,
   .post button {
     padding: 0.3rem 0.4rem;
+  }
+
+  .chipContainer{
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
 }
