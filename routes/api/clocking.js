@@ -27,11 +27,10 @@ router.post('/', [
     let clockData = JSON.parse(rawdata);
 
     let dateYMD = getDateYMD()
-    var foundItem = clockData.data.find(d => d.id == req.body.id && d.date == dateYMD);
+    var foundItem = clockData.data.find(d => d.id == req.body.id && d.date == dateYMD && d.type ==  req.body.type);
     if(foundItem){
-        if(foundItem.type == req.body.type){
-            return res.status(400).json({ "msg" : 'Already clocked-in/out' })
-        }
+        console.log("Error found")
+        return res.status(400).json({ "msg" : 'Already clocked-out. Thank you for today work.' })
     }
 
     let clockingData = {
@@ -59,14 +58,15 @@ router.get('/clockList', (req,res) => {
     res.send(clockData)
 })
 
-// @route   GET api/clocking/userClocking
+// @route   POST api/clocking/userClocking
 // @desc    Get user clocking by id and date
 // @access  Public
-router.get('/userClocking', [
+router.post('/userClocking', [
     check("id", "id is required").not().isEmpty()
 ],(req,res) => {
     const errors = validationResult(req);
     if(!errors.isEmpty()) {
+        console.log(req)
         return res.status(400).json({ errors: errors.array() })
     }
 
@@ -74,11 +74,9 @@ router.get('/userClocking', [
     let clockData = JSON.parse(rawdata);
 
     var foundItem = clockData.data.filter(d => d.id == req.body.id );
-
     if(foundItem.length > 0){
-        if(foundItem.length > 0 && req.body.date){
-            let dateYMD = getDateYMD()
-            foundItem = foundItem.filter(d => d.date == dateYMD)
+        if(req.body.date){
+            foundItem = foundItem.filter(d => d.date == req.body.date)
         }
     }
     res.send(foundItem)
