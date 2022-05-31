@@ -213,6 +213,7 @@ img {
 .bg-light,
 .badge-light {
   border: #ccc solid 1px;
+  border-radius: 14px;
 }
 
 .round-img {
@@ -384,6 +385,17 @@ button {
   padding: 1rem;
   line-height: 1.8;
   margin-bottom: 1rem;
+}
+
+.clocking-status {
+  display: grid;
+  grid-template-columns: 2fr 2fr;
+  align-items: center;
+  grid-gap: 2rem;
+  padding: 1rem;
+  line-height: 1.8;
+  margin-bottom: 1rem;
+  width: 25rem;
 }
 
 /* Profile Page */

@@ -5,11 +5,16 @@ import TextField from "@material-ui/core/TextField";
 import FormControl from '@mui/material/FormControl';
 
 import Timer from '../components/Timer';
+import ClockingStatus from '../components/ClockingStatus';
 const Clocking = () => {
 
   const [id,setId] = useState("")
   const [errorAlert,setErrorAlert] = useState({show : false,msg : "", class:"alert alert-danger"})
   const [disableBtn, setDisableBtn] = useState(false)
+
+  const [status,setStatus] = useState({"type" : "Check-in",
+  "status" : "Normal"})
+  const [submitStatus, setSubmitStatus] = useState()
 
   const checkClocking = async clockingData => {
     const params = {
@@ -69,6 +74,7 @@ const Clocking = () => {
       "status" : ""
     }
 
+
     var newClocking = await checkClocking(clockingData)
     try{
       const res = await api.post('/clocking/',newClocking)
@@ -77,6 +83,8 @@ const Clocking = () => {
         successMsg = "Clocking Success. Good to see you today."
       }
 
+      setStatus(clockingData)
+      setSubmitStatus(true)
       setDisableBtn(true)
       setErrorAlert({show : true, msg:successMsg, class:"alert alert-success"})
     } catch (err){
@@ -103,7 +111,7 @@ const Clocking = () => {
           <FormControl>
               <TextField 
                 value={id} 
-                onChange={(e) => {setErrorAlert({show : false, msg:""}); setId(e.target.value); setDisableBtn(false)}} 
+                onChange={(e) => {setErrorAlert({show : false, msg:""}); setId(e.target.value); setDisableBtn(false); setSubmitStatus(false)}} 
                 helperText="Please enter your ID." 
                 id="filled-basic"  
                 name='id' 
@@ -117,6 +125,9 @@ const Clocking = () => {
               <Button disabled={disableBtn} type="submit" variant="contained" color="primary">Clocking</Button>
           </FormControl>
         </form>
+
+        {submitStatus? <ClockingStatus type={status.type} status={status.status} /> : null}
+
 
       </div>
     </div>
