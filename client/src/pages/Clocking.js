@@ -35,8 +35,7 @@ const Clocking = () => {
       }
       else{
         type = "check-in"
-  
-        if(clockingData.time > '9:00'){
+        if(clockingData.time > '09:00'){
           status = "late"
         }
         else{
@@ -73,13 +72,21 @@ const Clocking = () => {
     var newClocking = await checkClocking(clockingData)
     try{
       const res = await api.post('/clocking/',newClocking)
+      let successMsg = "Clocking Success. Thank you for your hard work."
+      if(clockingData.type == "check-in"){
+        successMsg = "Clocking Success. Good to see you today."
+      }
+
       setDisableBtn(true)
-      setErrorAlert({show : true, msg:"Clocking Success.", class:"alert alert-success"})
+      setErrorAlert({show : true, msg:successMsg, class:"alert alert-success"})
     } catch (err){
       if(err.response.data.msg == "Already clocked-out. Thank you for today work."){
+        setErrorAlert({show : true, msg:err.response.data.msg, class:"alert alert-success"})
         setDisableBtn(true)
+        return
       }
-      setErrorAlert({show : true, msg:err.response.data.msg, class:"alert alert-success"})
+      const errorMessage = err.response.data.errors[0].msg
+      setErrorAlert({show : true, msg:errorMessage, class:"alert alert-danger"})
     }
 
   }
@@ -96,7 +103,7 @@ const Clocking = () => {
           <FormControl>
               <TextField 
                 value={id} 
-                onChange={(e) => {setErrorAlert({show : false, msg:""}); setId(e.target.value)}} 
+                onChange={(e) => {setErrorAlert({show : false, msg:""}); setId(e.target.value); setDisableBtn(false)}} 
                 helperText="Please enter your ID." 
                 id="filled-basic"  
                 name='id' 

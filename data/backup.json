@@ -5,28 +5,28 @@
       "date" : "2022-05-29",
       "time" : "18:10",
       "type" : "check-out",
-      "statue" : "normal"
+      "status" : "normal"
     },
     {
       "id" : "xxxxxxxxxx",
       "date" : "2022-05-22",
       "time" : "18:10",
       "type" : "check-out",
-      "statue" : "normal"
+      "status" : "normal"
     },
     {
       "id" : "xxxxxxxxx2",
       "date" : "2022-05-29",
       "time" : "08:10",
       "type" : "check-in",
-      "statue" : "normal"
+      "status" : "normal"
     },
     {
       "id" : "xxxxxxxxx3",
       "date" : "2022-05-29",
       "time" : "09:10",
       "type" : "check-in",
-      "statue" : "late"
+      "status" : "late"
     }
   ]
 }

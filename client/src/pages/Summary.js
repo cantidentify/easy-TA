@@ -1,4 +1,5 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
+import api from '../utils/api';
 import Grid from '../components/Grid';
 import CircleIcon from '@mui/icons-material/Circle';
 import Chip from "@material-ui/core/Chip";
@@ -8,43 +9,52 @@ import Timer from '../components/Timer';
 import { green, orange } from '@mui/material/colors';
 
 const Summary = () => {
-  const rows = [
+  const [rows,setRows] = useState([])
+  let iniRow = [
     { id: 1, col1: '0', col2: 'xxxx', col3:'5/30/2022, 5:21:47 PM', col4:'Clock-In', col5:'Normal' },
     { id: 2, col1: '1', col2: 'xxxx', col3:'5/30/2022, 5:21:47 PM', col4:'Clock-In', col5:'Late' },
     { id: 3, col1: '0', col2: 'xxxx', col3:'5/30/2022, 5:21:47 PM', col4:'Clock-In', col5:'Normal' },
     { id: 4, col1: '1', col2: 'xxxx', col3:'5/30/2022, 5:21:47 PM', col4:'Clock-In', col5:'Early' },
-    { id: 4, col1: '1', col2: 'xxxx', col3:'5/30/2022, 5:21:47 PM', col4:'Clock-In', col5:'Early' },
-    { id: 4, col1: '1', col2: 'xxxx', col3:'5/30/2022, 5:21:47 PM', col4:'Clock-In', col5:'Early' },
-    { id: 4, col1: '1', col2: 'xxxx', col3:'5/30/2022, 5:21:47 PM', col4:'Clock-In', col5:'Early' },
-    { id: 4, col1: '1', col2: 'xxxx', col3:'5/30/2022, 5:21:47 PM', col4:'Clock-In', col5:'Early' },
-    { id: 4, col1: '1', col2: 'xxxx', col3:'5/30/2022, 5:21:47 PM', col4:'Clock-In', col5:'Early' },
-    { id: 4, col1: '1', col2: 'xxxx', col3:'5/30/2022, 5:21:47 PM', col4:'Clock-In', col5:'Early' },
-    { id: 4, col1: '1', col2: 'xxxx', col3:'5/30/2022, 5:21:47 PM', col4:'Clock-In', col5:'Early' },
-    { id: 4, col1: '1', col2: 'xxxx', col3:'5/30/2022, 5:21:47 PM', col4:'Clock-In', col5:'Early' },
-    { id: 4, col1: '1', col2: 'xxxx', col3:'5/30/2022, 5:21:47 PM', col4:'Clock-In', col5:'Early' },
-    { id: 4, col1: '1', col2: 'xxxx', col3:'5/30/2022, 5:21:47 PM', col4:'Clock-In', col5:'Early' },
-    { id: 4, col1: '1', col2: 'xxxx', col3:'5/30/2022, 5:21:47 PM', col4:'Clock-In', col5:'Early' },
-    { id: 4, col1: '1', col2: 'xxxx', col3:'5/30/2022, 5:21:47 PM', col4:'Clock-In', col5:'Early' },
-    { id: 4, col1: '1', col2: 'xxxx', col3:'5/30/2022, 5:21:47 PM', col4:'Clock-In', col5:'Early' },
-    { id: 4, col1: '1', col2: 'xxxx', col3:'5/30/2022, 5:21:47 PM', col4:'Clock-In', col5:'Early' },
-    { id: 4, col1: '1', col2: 'xxxx', col3:'5/30/2022, 5:21:47 PM', col4:'Clock-In', col5:'Early' },
-    { id: 4, col1: '1', col2: 'xxxx', col3:'5/30/2022, 5:21:47 PM', col4:'Clock-In', col5:'Early' },
-    { id: 4, col1: '1', col2: 'xxxx', col3:'5/30/2022, 5:21:47 PM', col4:'Clock-In', col5:'Early' },
-    { id: 4, col1: '1', col2: 'xxxx', col3:'5/30/2022, 5:21:47 PM', col4:'Clock-In', col5:'Early' },
-    { id: 4, col1: '1', col2: 'xxxx', col3:'5/30/2022, 5:21:47 PM', col4:'Clock-In', col5:'Early' },
-    { id: 4, col1: '1', col2: 'xxxx', col3:'5/30/2022, 5:21:47 PM', col4:'Clock-In', col5:'Early' },
-    { id: 4, col1: '1', col2: 'xxxx', col3:'5/30/2022, 5:21:47 PM', col4:'Clock-In', col5:'Early' },
-    { id: 4, col1: '1', col2: 'xxxx', col3:'5/30/2022, 5:21:47 PM', col4:'Clock-In', col5:'Early' },
-    { id: 4, col1: '1', col2: 'xxxx', col3:'5/30/2022, 5:21:47 PM', col4:'Clock-In', col5:'Early' },
-    { id: 4, col1: '1', col2: 'xxxx', col3:'5/30/2022, 5:21:47 PM', col4:'Clock-In', col5:'Early' },
-    { id: 4, col1: '1', col2: 'xxxx', col3:'5/30/2022, 5:21:47 PM', col4:'Clock-In', col5:'Early' },
-    { id: 4, col1: '1', col2: 'xxxx', col3:'5/30/2022, 5:21:47 PM', col4:'Clock-In', col5:'Early' },
-    { id: 4, col1: '1', col2: 'xxxx', col3:'5/30/2022, 5:21:47 PM', col4:'Clock-In', col5:'Early' },
-    { id: 4, col1: '1', col2: 'xxxx', col3:'5/30/2022, 5:21:47 PM', col4:'Clock-In', col5:'Early' },
-    { id: 4, col1: '1', col2: 'xxxx', col3:'5/30/2022, 5:21:47 PM', col4:'Clock-In', col5:'Early' },
-    { id: 4, col1: '1', col2: 'xxxx', col3:'5/30/2022, 5:21:47 PM', col4:'Clock-In', col5:'Early' },
-    { id: 4, col1: '1', col2: 'xxxx', col3:'5/30/2022, 5:21:47 PM', col4:'Clock-In', col5:'Early' },
+    { id: 5, col1: '1', col2: 'xxxx', col3:'5/30/2022, 5:21:47 PM', col4:'Clock-In', col5:'Early' },
+    { id: 6, col1: '1', col2: 'xxxx', col3:'5/30/2022, 5:21:47 PM', col4:'Clock-In', col5:'Early' },
+    { id: 7, col1: '1', col2: 'xxxx', col3:'5/30/2022, 5:21:47 PM', col4:'Clock-In', col5:'Early' },
+    { id: 8, col1: '1', col2: 'xxxx', col3:'5/30/2022, 5:21:47 PM', col4:'Clock-In', col5:'Early' }
   ];
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const res = await api.get('/clocking/clockList')
+      let clockingList = []
+      let id = 1
+      res.data.data.map(e => {
+
+        let btnStatus = 0
+        if (e.status == "normal"){
+          btnStatus = 1
+        }
+        console.log(e.status)
+
+        let buffer = {
+          id : id,
+          col1: btnStatus,
+          col2: e.id,
+          col3: e.date,
+          col4: e.time,
+          col5: e.type,
+          col6: e.status,
+        }
+        id++
+        clockingList.push(buffer)
+
+      })
+      setRows(clockingList);
+    }
+  
+    fetchData()
+      .catch(console.error);;
+  }, [])
+
+
   const columns = [
     { 
       field: 'col1', sortable: false,
@@ -52,9 +62,10 @@ const Summary = () => {
       return <Chip style={{backgroundColor:'white'}} size='medium' {...renderIcon(params)}/>;
     }, headerName: 'Status', width: 150, headerAlign: 'center', },
     { field: 'col2', headerName: 'Id', width: 150, headerAlign: 'center', },
-    { field: 'col3', headerName: 'Clock-Time', width: 200, headerAlign: 'center', },
-    { field: 'col4', headerName: 'Type', width: 150, headerAlign: 'center', },
-    { field: 'col5', headerName: 'Status', width: 150, headerAlign: 'center', }
+    { field: 'col3', headerName: 'Clock Date', width: 200, headerAlign: 'center', },
+    { field: 'col4', headerName: 'Clock Time', width: 200, headerAlign: 'center', },
+    { field: 'col5', headerName: 'Type', width: 150, headerAlign: 'center', },
+    { field: 'col6', headerName: 'Status', width: 150, headerAlign: 'center', }
   ];
   return (
     <section className='container'>

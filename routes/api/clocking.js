@@ -12,7 +12,7 @@ var clockingPath = path.join(__dirname, '..','..', 'data','clockings.json');
 // @access  Public
 router.post('/', [
     check("id", "id is required").not().isEmpty(),
-    check("id", "id is must 10 characters").isLength({ min: 10 , max:10 }),
+    check("id", "Id must be 10 characters").isLength({ min: 10 , max:10 }),
     check("date", "date is required").not().isEmpty(),
     check("time", "time is required").not().isEmpty(),
     check("type", "type is required").not().isEmpty(),
@@ -29,7 +29,6 @@ router.post('/', [
     let dateYMD = getDateYMD()
     var foundItem = clockData.data.find(d => d.id == req.body.id && d.date == dateYMD && d.type ==  req.body.type);
     if(foundItem){
-        console.log("Error found")
         return res.status(400).json({ "msg" : 'Already clocked-out. Thank you for today work.' })
     }
 
@@ -41,7 +40,7 @@ router.post('/', [
         "status" : req.body.status
     }
     let newFile = {...clockData}
-    newFile.data.push(clockingData)
+    newFile.data.unshift(clockingData)
 
     let data = JSON.stringify(newFile);
     fs.writeFileSync(clockingPath, data);
@@ -66,7 +65,6 @@ router.post('/userClocking', [
 ],(req,res) => {
     const errors = validationResult(req);
     if(!errors.isEmpty()) {
-        console.log(req)
         return res.status(400).json({ errors: errors.array() })
     }
 
