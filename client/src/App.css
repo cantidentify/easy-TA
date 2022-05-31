@@ -45,6 +45,25 @@ img {
   margin-bottom: 3rem;
 }
 
+
+.sign-in-up{
+  display: flex;
+  flex-direction: row;
+  align-content: stretch;
+  justify-content: space-around;
+}
+
+.login-section,
+.register-section {
+  width: 28rem;
+  border: #bac2ff solid 1px;
+  padding-left: 4rem;
+  padding-top: 4rem;
+  padding-right: 4rem;
+  padding-bottom: 2rem;
+  border-radius: 10px;
+}
+
 /* Text Styles*/
 .x-large {
   font-size: 4rem;
@@ -68,7 +87,7 @@ img {
 }
 
 .text-primary {
-  color: var(--primary-color);
+  color: #1C6DD0;
 }
 
 .text-dark {
@@ -623,10 +642,4 @@ button {
     padding: 0.3rem 0.4rem;
   }
 
-  .chipContainer{
-    height: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
 }

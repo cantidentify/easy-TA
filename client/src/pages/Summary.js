@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import api from '../utils/api';
+import { Link } from 'react-router-dom'
 import Grid from '../components/Grid';
 import CircleIcon from '@mui/icons-material/Circle';
 import Chip from "@material-ui/core/Chip";
@@ -10,16 +11,6 @@ import { green, orange } from '@mui/material/colors';
 
 const Summary = () => {
   const [rows,setRows] = useState([])
-  let iniRow = [
-    { id: 1, col1: '0', col2: 'xxxx', col3:'5/30/2022, 5:21:47 PM', col4:'Clock-In', col5:'Normal' },
-    { id: 2, col1: '1', col2: 'xxxx', col3:'5/30/2022, 5:21:47 PM', col4:'Clock-In', col5:'Late' },
-    { id: 3, col1: '0', col2: 'xxxx', col3:'5/30/2022, 5:21:47 PM', col4:'Clock-In', col5:'Normal' },
-    { id: 4, col1: '1', col2: 'xxxx', col3:'5/30/2022, 5:21:47 PM', col4:'Clock-In', col5:'Early' },
-    { id: 5, col1: '1', col2: 'xxxx', col3:'5/30/2022, 5:21:47 PM', col4:'Clock-In', col5:'Early' },
-    { id: 6, col1: '1', col2: 'xxxx', col3:'5/30/2022, 5:21:47 PM', col4:'Clock-In', col5:'Early' },
-    { id: 7, col1: '1', col2: 'xxxx', col3:'5/30/2022, 5:21:47 PM', col4:'Clock-In', col5:'Early' },
-    { id: 8, col1: '1', col2: 'xxxx', col3:'5/30/2022, 5:21:47 PM', col4:'Clock-In', col5:'Early' }
-  ];
 
   useEffect(() => {
     const fetchData = async () => {
@@ -32,7 +23,6 @@ const Summary = () => {
         if (e.status == "normal"){
           btnStatus = 1
         }
-        console.log(e.status)
 
         let buffer = {
           id : id,
@@ -61,7 +51,13 @@ const Summary = () => {
     renderCell: (params) => {
       return <Chip style={{backgroundColor:'white'}} size='medium' {...renderIcon(params)}/>;
     }, headerName: 'Status', width: 150, headerAlign: 'center', },
-    { field: 'col2', headerName: 'Id', width: 150, headerAlign: 'center', },
+    { 
+      field: 'col2', 
+      renderCell: (params) => {
+        let link = "/Sign-In-Up?id=" + params.value
+        return (<Link to={link}>{params.value}</Link>)
+      }, headerName: 'Id', width: 150, headerAlign: 'center',
+    },
     { field: 'col3', headerName: 'Clock Date', width: 200, headerAlign: 'center', },
     { field: 'col4', headerName: 'Clock Time', width: 200, headerAlign: 'center', },
     { field: 'col5', headerName: 'Type', width: 150, headerAlign: 'center', },
