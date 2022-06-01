@@ -5,11 +5,12 @@ import Clocking from './pages/Clocking';
 import SignInUp from './pages/SignInUp';
 import Summary from './pages/Summary';
 
-// Redux
-import { Provider } from 'react-redux';
-import store from './store'
-
 import './App.css';
+
+// Redux
+import store from './store'
+import { Provider } from 'react-redux'
+
 
 const App = () => 
 <Provider store={store}>

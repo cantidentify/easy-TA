@@ -3,11 +3,24 @@ import { Button } from '@material-ui/core';
 import FormControl from '@mui/material/FormControl';
 import TextField from "@material-ui/core/TextField";
 
+// redux
+import {useDispatch, useSelector} from 'react-redux'
+import { toggle } from '../store/alert'
 
 const SignInUp = () => {
+  const dispatch = useDispatch()
+  const { alert } = useSelector(state => state.alert)
 
   const [loginForm,setLoginForm] = useState({id:"", password: ""})
   const [registerForm,setRegisterForm] = useState({id:"", name : "", password: "", password2: ""})
+
+  const onSubmit = (e) => {
+    e.preventDefault()
+    console.log('Before', alert)
+    dispatch(toggle(alert))
+    console.log('After', alert)
+
+  }
 
   return (
     <section className="container">
@@ -17,7 +30,7 @@ const SignInUp = () => {
 
         <h1 className="large text-primary">Sign In</h1>
         <p className="lead"><i className="fas fa-user"></i> Sign into Your Account</p>
-        <form>
+        <form onSubmit={e => onSubmit(e)}>
             <TextField 
                 style ={{width: '18rem'}}
                 value={loginForm.id} 
