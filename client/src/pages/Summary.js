@@ -52,11 +52,7 @@ const Summary = () => {
       return <Chip style={{backgroundColor:'white'}} size='medium' {...renderIcon(params)}/>;
     }, headerName: 'Status', width: 150, headerAlign: 'center', },
     { 
-      field: 'col2', 
-      renderCell: (params) => {
-        let link = "/Sign-In-Up?id=" + params.value
-        return (<Link to={link}>{params.value}</Link>)
-      }, headerName: 'Id', width: 150, headerAlign: 'center',
+      field: 'col2', headerName: 'Id', width: 150, headerAlign: 'center',
     },
     { field: 'col3', headerName: 'Clock Date', width: 200, headerAlign: 'center', },
     { field: 'col4', headerName: 'Clock Time', width: 200, headerAlign: 'center', },
