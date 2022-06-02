@@ -1,3 +1,7 @@
+<img src="cover/cover-1.png" alt="cover-1" width="80" height="80">
+<img src="cover/cover-2.png" alt="cover-1" width="80" height="80">
+<img src="cover/cover-3.png" alt="cover-1" width="80" height="80">
+
 ## About The Project
 
 Easy Time Attendance is the software builded up in the concept of easy and simple to use for stamp user working time.
