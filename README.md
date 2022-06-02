@@ -31,7 +31,7 @@ Distributed under the MIT License. See `LICENSE` for more information.
 
 ## Contact
 
-Your Name - [@your_twitter](https://twitter.com/your_username) - email@example.com
+Atip Yongstar - [LinkedIn](https://www.linkedin.com/in/atip-yongstar-5118b5186/) - atipdev.y@gmail.com
 
 Project Link: [https://github.com/your_username/repo_name](https://github.com/your_username/repo_name)
 
