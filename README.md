@@ -18,12 +18,12 @@ Follow this step to run app in local machine.
 ```sh
   npm install
 ```
-2. Install client package for react 
+2. Install client package for react by cd into client folder
 ```sh
   cd client
   npm install
 ```
-3. Run application by cd back to root project and run Express and Client
+3. Run application by cd back to root project folder and run Express and Client
 ```sh
   cd ..
   npm run dev
