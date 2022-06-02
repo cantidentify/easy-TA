@@ -44,3 +44,4 @@ Project Link: [https://github.com/your_username/repo_name](https://github.com/yo
 * [Project structure and style reference](https://github.com/bradtraversy/devconnector_2.0)
 * [Reading and writing json file with node](https://stackabuse.com/reading-and-writing-json-files-with-node-js/)
 * [Material UI](https://mui.com/)
+* [Redux and configureStore](https://redux-toolkit.js.org/api/configureStore)
