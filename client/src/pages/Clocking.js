@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import api from '../utils/api';
 import { Button } from '@material-ui/core';
 import TextField from "@material-ui/core/TextField";
@@ -9,12 +9,20 @@ import ClockingStatus from '../components/ClockingStatus';
 
 // Redux
 import {useDispatch, useSelector} from 'react-redux'
-import { clockingSuccess, clockingFail, setErrorAlert, onChangeInput } from '../features/clocking'
+import { clockingSuccess, clockingFail, setErrorAlert, onChangeInput, logedIn, initialPage } from '../features/clocking'
 
 const Clocking = () => {
   
   const clockingReduce = useSelector((state) => state.clocking)  
+  const userReduce = useSelector((state) => state.user)  
   const dispatch = useDispatch()
+
+  useEffect(() => {
+    dispatch(initialPage())
+    if(userReduce.id){
+      dispatch(logedIn(userReduce.id))
+    }
+  }, [])
 
   const checkClocking = async clockingData => {
     const params = {
@@ -89,6 +97,9 @@ const Clocking = () => {
         },
         successMsg : successMsg
       }));
+      setTimeout(() => {
+        dispatch(initialPage())
+      }, 10000);
     } catch (err){
       if(err.response.data.msg == "Already clocked-out. Thank you for today work."){
         dispatch(clockingFail({
@@ -127,6 +138,7 @@ const Clocking = () => {
                 name='id' 
                 label="ID" 
                 variant="filled" 
+                disabled={clockingReduce.disableIdInput}
               />
               { 
                 clockingReduce.errorAlert.show ? <div className={clockingReduce.errorAlert.class}>{clockingReduce.errorAlert.msg}</div> : null 

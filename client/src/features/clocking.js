@@ -14,7 +14,8 @@ const clockingSlice = createSlice({
             type : "Check-in",
             status : "Normal",
             show : false
-        }
+        },
+        disableIdInput : false
     },
     reducers: {
         clockingSuccess: (state,action) => {
@@ -35,10 +36,19 @@ const clockingSlice = createSlice({
             state.errorAlert = {show : false, msg: ""}
             state.disableBtn = false;
             state.clockStatus.show = false;
+        },
+        logedIn: (state,action) => {
+            state.user.id = action.payload
+            state.disableIdInput = true
+        },
+        initialPage: (state,action) => {
+            state.clockStatus.show = false;
+            state.disableBtn = false
+            state.errorAlert.show = false
         }
     }
 })
 
 export default clockingSlice.reducer
-export const { clockingSuccess, clockingFail, setErrorAlert, onChangeInput } = clockingSlice.actions
+export const { clockingSuccess, clockingFail, setErrorAlert, onChangeInput, logedIn, initialPage } = clockingSlice.actions
 
