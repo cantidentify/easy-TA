@@ -48,7 +48,7 @@ const Clocking = () => {
       }
       else{
         type = "check-in"
-        if(clockingData.time > '09:00'){
+        if(clockingData.time > '9:00'){
           status = "late"
         }
         else{
