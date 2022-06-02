@@ -1,6 +1,6 @@
-<img src="cover/cover-1.png" alt="cover-1" width="80" height="80">
-<img src="cover/cover-2.png" alt="cover-1" width="80" height="80">
-<img src="cover/cover-3.png" alt="cover-1" width="80" height="80">
+![project_sample](cover/cover-1.png)
+![project_sample](cover/cover-2.png)
+![project_sample](cover/cover-3.png)
 
 ## About The Project
 
