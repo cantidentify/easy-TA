@@ -6,19 +6,19 @@ import FormControl from '@mui/material/FormControl';
 
 import Timer from '../components/Timer';
 import ClockingStatus from '../components/ClockingStatus';
+
+// Redux
+import {useDispatch, useSelector} from 'react-redux'
+import { clockingSuccess, clockingFail, setErrorAlert, onChangeInput } from '../features/clocking'
+
 const Clocking = () => {
-
-  const [id,setId] = useState("")
-  const [errorAlert,setErrorAlert] = useState({show : false,msg : "", class:"alert alert-danger"})
-  const [disableBtn, setDisableBtn] = useState(false)
-
-  const [status,setStatus] = useState({"type" : "Check-in",
-  "status" : "Normal"})
-  const [submitStatus, setSubmitStatus] = useState()
+  
+  const clockingReduce = useSelector((state) => state.clocking)  
+  const dispatch = useDispatch()
 
   const checkClocking = async clockingData => {
     const params = {
-      id : id,
+      id : clockingReduce.user.id,
       date : clockingData.date
     }
   
@@ -51,23 +51,22 @@ const Clocking = () => {
       clockingData.status = status
       clockingData.type = type
       
-      setErrorAlert({show : false, msg:""})
+      dispatch(setErrorAlert({show : false, msg:"",class:"alert alert-danger"}))
       return clockingData
 
     }catch(err){
-      setErrorAlert({show : true, msg:"Server error please try again.",class:"alert alert-danger"})
+      dispatch(setErrorAlert({show : true, msg:"Server error please try again.",class:"alert alert-danger"}))
     }
   }
 
   const onSubmit = async e => {
     e.preventDefault();
-    if(!id){
-      setErrorAlert({show : true, msg:"Please enter your ID.", class: "alert alert-danger"})
+    if(!clockingReduce.user.id){
+      dispatch(setErrorAlert({show : true, msg:"Please enter your ID.", class: "alert alert-danger"}))
       return
     }
-
     const clockingData = {
-      "id" : id,
+      "id" : clockingReduce.user.id,
       "date" : getDate(),
       "time" : getTime(),
       "type" : "",
@@ -79,22 +78,28 @@ const Clocking = () => {
     try{
       const res = await api.post('/clocking/',newClocking)
       let successMsg = "Clocking Success. Thank you for your hard work."
-      if(clockingData.type == "check-in"){
+      if(newClocking.type == "check-in"){
         successMsg = "Clocking Success. Good to see you today."
       }
-
-      setStatus(clockingData)
-      setSubmitStatus(true)
-      setDisableBtn(true)
-      setErrorAlert({show : true, msg:successMsg, class:"alert alert-success"})
+      dispatch(clockingSuccess({
+        clockingData : { 
+          type : newClocking.type,
+          status : newClocking.status,
+          show : true
+        },
+        successMsg : successMsg
+      }));
     } catch (err){
       if(err.response.data.msg == "Already clocked-out. Thank you for today work."){
-        setErrorAlert({show : true, msg:err.response.data.msg, class:"alert alert-success"})
-        setDisableBtn(true)
+        dispatch(clockingFail({
+          show : true, msg:err.response.data.msg, class:"alert alert-success"
+        }));
         return
       }
       const errorMessage = err.response.data.errors[0].msg
-      setErrorAlert({show : true, msg:errorMessage, class:"alert alert-danger"})
+      dispatch(clockingFail({
+        show : true, msg:errorMessage, class:"alert alert-danger"
+      }));
     }
 
   }
@@ -110,8 +115,13 @@ const Clocking = () => {
         <form onSubmit={e => onSubmit(e)}>
           <FormControl>
               <TextField 
-                value={id} 
-                onChange={(e) => {setErrorAlert({show : false, msg:""}); setId(e.target.value); setDisableBtn(false); setSubmitStatus(false)}} 
+                value={clockingReduce.user.id} 
+                onChange={(e) => { 
+                  dispatch(onChangeInput({
+                    id : e.target.value,
+                    show : false,
+                    msg:"",
+                  }))}} 
                 helperText="Please enter your ID." 
                 id="filled-basic"  
                 name='id' 
@@ -119,14 +129,14 @@ const Clocking = () => {
                 variant="filled" 
               />
               { 
-                errorAlert.show ? <div className={errorAlert.class}>{errorAlert.msg}</div> : null 
+                clockingReduce.errorAlert.show ? <div className={clockingReduce.errorAlert.class}>{clockingReduce.errorAlert.msg}</div> : null 
               }
               <br/>
-              <Button disabled={disableBtn} type="submit" variant="contained" color="primary">Clocking</Button>
+              <Button disabled={clockingReduce.disableBtn} type="submit" variant="contained" color="primary">Clocking</Button>
           </FormControl>
         </form>
 
-        {submitStatus? <ClockingStatus type={status.type} status={status.status} /> : null}
+        {clockingReduce.clockStatus.show? <ClockingStatus type={clockingReduce.clockStatus.type} status={clockingReduce.clockStatus.status} /> : null}
 
 
       </div>

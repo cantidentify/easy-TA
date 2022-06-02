@@ -1,9 +1,13 @@
 import { configureStore } from "@reduxjs/toolkit";
 import { combineReducers } from "redux";
-import alert from './alert'
+
+import clocking from '../features/clocking'
+import signIn from "../features/signIn";
+
 const reducer = combineReducers({
     // adding reducer
-    alert
+    clocking,
+    signIn
 })
 
 const store = configureStore({

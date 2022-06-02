@@ -4,21 +4,14 @@ import FormControl from '@mui/material/FormControl';
 import TextField from "@material-ui/core/TextField";
 
 // redux
-import {useDispatch, useSelector} from 'react-redux'
-import { toggle } from '../store/alert'
 
 const SignInUp = () => {
-  const dispatch = useDispatch()
-  const { alert } = useSelector(state => state.alert)
 
   const [loginForm,setLoginForm] = useState({id:"", password: ""})
   const [registerForm,setRegisterForm] = useState({id:"", name : "", password: "", password2: ""})
 
   const onSubmit = (e) => {
     e.preventDefault()
-    console.log('Before', alert)
-    dispatch(toggle(alert))
-    console.log('After', alert)
 
   }
 
