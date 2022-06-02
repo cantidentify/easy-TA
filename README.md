@@ -8,8 +8,8 @@ Easy Time Attendance is the software builded up in the concept of easy and simpl
 
 Main features
 * User clocking, user enter ID 10 characters to clocking and stamp working time into system, and will showing in summary menu.
-* Clocking history, in navigation bar is titled Summary menu, that show all user clocking history, will provide id, date, time, clocking type, clocking status in table.
-* Sign-In and Sign-Up, in navigation bar is titled Sign-In / Sign-Up menu, user can create account and login then user's id will auto enter in clocking id input field.
+* Clocking history, in navigation bar is titled Summary, that show all user clocking history, will provide id, date, time, clocking type, clocking status in table.
+* Sign-In and Sign-Up, in navigation bar is titled Sign-In / Sign-Up, user can create account and login then user's id will auto enter in clocking id input field.
 
 ## Getting Started
 
